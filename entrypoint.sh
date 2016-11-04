@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-#printenv
 if ! [[ "$1" == nginx ]] || [ "$1" == php-fpm ]; then
 echo $1
 	: "${WORDPRESS_DB_HOST:=mysql}"
@@ -167,8 +166,6 @@ EOPHP
 fi
 
 if ! [  -e  /usr/share/nginx/system-config/php.ini ]; then
-#rm -rf /usr/share/nginx/system-config
-#mkdir /usr/share/nginx/system-config
 cp  -r /system-config/*  /usr/share/nginx/system-config/
 ln -sf /usr/share/nginx/system-config/nginx.conf /etc/nginx/nginx.conf
 ln -sf /usr/share/nginx/system-config/php.ini /etc/php.ini
@@ -178,6 +175,4 @@ ln -sf /usr/share/nginx/system-config/default.conf /etc/nginx/conf.d/default.con
 
 fi
 chown -R nginx:nginx /usr/share/nginx/html
-#/usr/sbin/php-fpm -D
-#/usr/sbin/sendmail -bd
 exec "$@"
